@@ -7,10 +7,10 @@ export default function Header() {
         <div className="w-full min-h-screen flex justify-center items-center px-4 py-12">
             <div className="flex flex-col items-center gap-8 md:gap-10 max-w-2xl w-full text-center">
                 <div className="flex flex-col items-center gap-3">
-                    <span className="title text-4xl sm:text-6xl font-black text-zinc-100 tracking-tight">
+                    <span className="title text-4xl sm:text-6xl font-blacktracking-tight">
                         წიგნი
                     </span>
-                    <span className="text-zinc-400 text-sm sm:text-base max-w-md leading-relaxed">
+                    <span className="text-sm sm:text-base max-w-md leading-relaxed">
                         მრავალ თემასთან დაკავშირებული არტიკლები ქართულ და ინგლისურ ენაზე.
                     </span>
                 </div>

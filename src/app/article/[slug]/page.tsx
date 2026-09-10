@@ -51,7 +51,7 @@ export default async function ArticlePage({
             <article className="max-w-3xl mx-auto space-y-6 sm:space-y-8">
                 <Link 
                     href="/" 
-                    className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-rose-400 transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-mono hover:text-rose-400 transition-colors"
                 >
                     <ChevronLeft className="w-4 h-4" /> მთავარ გვერდზე დაბრუნება
                 </Link>
@@ -59,7 +59,7 @@ export default async function ArticlePage({
                 <header className="space-y-4 border-b border-zinc-800 pb-6 sm:pb-8">
                     <div className="flex flex-wrap gap-2 text-xs font-mono">
                         {frontmatter.region && (
-                            <span className="bg-zinc-900 border border-zinc-700/60 text-zinc-300 px-2.5 py-1 rounded-md">
+                            <span className="bg-zinc-900 border border-zinc-700/60 px-2.5 py-1 rounded-md">
                                 📍 {frontmatter.region}
                             </span>
                         )}
@@ -69,7 +69,7 @@ export default async function ArticlePage({
                             </span>
                         )}
                         {frontmatter.era && (
-                            <span className="bg-zinc-900 border border-zinc-800 text-zinc-400 px-2.5 py-1 rounded-md">
+                            <span className="bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-md">
                                 ⏳ {frontmatter.era}
                             </span>
                         )}
@@ -93,7 +93,7 @@ export default async function ArticlePage({
                     </div>
                 )}
 
-                <div className="prose prose-invert prose-rose max-w-none prose-p:text-zinc-300 prose-headings:text-zinc-100 prose-sm sm:prose-base">
+                <div className="prose prose-invert prose-rose max-w-none prose-sm sm:prose-base">
                     <MDXRemote source={content} components={mdxComponents} />
                 </div>
             </article>
