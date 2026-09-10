@@ -1,5 +1,10 @@
 # წიგნი / Tsigni
-![melanqoliuri_lobio](https://cdn.jsdelivr.net/gh/giorgigelashvili12/Tsigni@main/public/images/logo.png)
+
+<img 
+	src="https://cdn.jsdelivr.net/gh/giorgigelashvili12/Tsigni@main/public/images/logo.png" 
+	alt="melanqoliuri_lobio" 
+	className="w-24 h-auto" 
+/>
 
 ## ქართულად
 
