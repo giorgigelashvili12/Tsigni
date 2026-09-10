@@ -1,38 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# წიგნი / Tsigni
 
-## Getting Started
+## ქართულად
 
-First, run the development server:
+ქართული, მცირე ვიკიპედიის ვერსია, რომლის არტიკლები, მონაცემები და ისტორია მხოლოდ საქართველოს უკავშირდება. არტიკლების ავტორი მხოლოდ მე ვიქნები, ვინაიდან პროექტი არ არის მაშტაბური, არ გააჩნია თავისი სერვერი და ძალიან მარტივი არქიტექტურააქვს.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ვებსაიტზე შეგიძლია მოიძიო ინფორმაცია, თუ გჭირდება ინფორმაციის დამუშავებისთვის, პროექტისთვის, ან მხოლოდ ინტერესისთვის. დროსთან ერთად, უფრო მეტი ინფორმაცია, სტატისტიკა, რუკა და სხვა დანარჩენი აიტვირთება. (ამასთანავე არა რეალისტური / ალტერნატიური ისტორიაც იქნება მოთავსებული. ამასთან ერთად ზოგადი საკითხები, როგორიცაა იდეოლოგია და ზეგავლენა).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## English
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+A small version of Wikipedia based on Georgia, it's articles, data and history. The articles are authored by me specifically, since the project itself is very simple, doesn't require a server or a complex UI.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+On the website, you can search stuff you might need for your research, project, or just out of interest. Time to time, real maps, data and even fan-made history will be there as a category.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Tsigni
-# Tsigni
+TikTok:
+![melanqoliuri_lobio](/client/public/images/profile.png)
