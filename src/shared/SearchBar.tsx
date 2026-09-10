@@ -8,7 +8,7 @@ interface SearchItem {
     slug: string;
     title: string;
     topic: string;
-    region: string;
+    region: string; 
     era: string;
     snippet: string;
 }
