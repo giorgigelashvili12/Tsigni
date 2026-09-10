@@ -13,4 +13,4 @@ A small version of Wikipedia based on Georgia, it's articles, data and history. 
 On the website, you can search stuff you might need for your research, project, or just out of interest. Time to time, real maps, data and even fan-made history will be there as a category.
 
 TikTok:
-![melanqoliuri_lobio](https://cdn.jsdelivr.net/gh/Gios1Workspace/tsignidb@main/client/public/images/profile.png)
+![melanqoliuri_lobio](https://cdn.jsdelivr.net/gh/giorgigelashvili12/Tsigni@main/client/public/images/profile.png)
