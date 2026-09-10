@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
+import { useRouter } from 'next/router';
 
 interface SearchItem {
     slug: string;
     title: string;
     topic: string;
-    region: string; 
+    region: string;
     era: string;
     snippet: string;
 }
@@ -17,31 +18,66 @@ export default function SearchBar() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchItem[]>([]);
     const [fuse, setFuse] = useState<Fuse<SearchItem> | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+    const router = useRouter();
 
     useEffect(() => {
-        fetch('/search-index.json')
-            .then((res) => res.json())
+        fetch(`/search-index.json?v=${Date.now()}`)
+            .then((res) => {
+                if (!res.ok) throw new Error('Index error');
+                return res.json();
+            })
             .then((data: SearchItem[]) => {
                 const fuseInstance = new Fuse(data, {
                     keys: ['title', 'topic', 'region', 'era', 'snippet'],
-                    threshold: 0.35,
+                    threshold: 0.4,
+                    minMatchCharLength: 1
                 });
                 setFuse(fuseInstance);
-            });
+            })
+            .catch(() => {});
     }, []);
 
     useEffect(() => {
         if (!fuse || !query.trim()) {
             setResults([]);
+            setSelectedIndex(-1);
             return;
         }
         const searchResults = fuse.search(query).map((res) => res.item);
         setResults(searchResults.slice(0, 5));
+        setSelectedIndex(-1);
     }, [query, fuse]);
 
     const handleClear = () => {
         setQuery('');
         setResults([]);
+        setSelectedIndex(-1);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (results.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setSelectedIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1));
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < results.length) {
+                const target = results[selectedIndex];
+                handleClear();
+                router.push(`/article/${target.slug}`);
+            } else if (results[0]) {
+                const target = results[0];
+                handleClear();
+                router.push(`/article/${target.slug}`);
+            }
+        } else if (e.key === 'Escape') {
+            handleClear();
+        }
     };
 
     return (
@@ -57,6 +93,7 @@ export default function SearchBar() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="მოიძიეთ რაც გაინტერესებთ..."
                     className="w-full bg-transparent py-3.5 pl-3 pr-12 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none"
                 />
@@ -80,15 +117,19 @@ export default function SearchBar() {
             {query.trim() !== '' && (
                 <div className="absolute left-4 right-4 mt-2 bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-2xl backdrop-blur-xl overflow-hidden z-50 divide-y divide-zinc-800/50">
                     {results.length > 0 ? (
-                        results.map((item) => (
+                        results.map((item, idx) => (
                             <Link
                                 key={item.slug}
                                 href={`/article/${item.slug}`}
                                 onClick={handleClear}
-                                className="block p-3.5 hover:bg-zinc-800/60 transition-colors group"
+                                className={`block p-3.5 transition-colors group ${
+                                    idx === selectedIndex ? 'bg-zinc-800/80 border-l-2 border-rose-500' : 'hover:bg-zinc-800/60'
+                                }`}
                             >
                                 <div className="flex items-center justify-between mb-1">
-                                    <h4 className="text-sm font-medium text-zinc-200 group-hover:text-rose-400 transition-colors">
+                                    <h4 className={`text-sm font-medium transition-colors ${
+                                        idx === selectedIndex ? 'text-rose-400' : 'text-zinc-200 group-hover:text-rose-400'
+                                    }`}>
                                         {item.title}
                                     </h4>
                                     <div className="flex gap-1.5 text-[10px] font-mono">

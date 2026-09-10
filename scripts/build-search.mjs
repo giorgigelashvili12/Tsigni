@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 const outputFilePath = path.resolve(process.cwd(), 'public/search-index.json');
-const GITHUB_API_URL = 'https://api.github.com/repos/Gios1Workspace/tsignidb/articles';
+const GITHUB_API_URL = 'https://api.github.com/repos/Gios1Workspace/tsignidb/contents/articles';
 
 async function buildSearchIndex() {
   try {
