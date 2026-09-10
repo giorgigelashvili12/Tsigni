@@ -1,4 +1,5 @@
 # წიგნი / Tsigni
+![melanqoliuri_lobio](https://cdn.jsdelivr.net/gh/giorgigelashvili12/Tsigni@main/public/images/logo.png)
 
 ## ქართულად
 
