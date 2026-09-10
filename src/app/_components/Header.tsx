@@ -4,21 +4,28 @@ import React from 'react'
 
 export default function Header() {
     return (
-        <div className=''>
-            <div className='flex justify-center items-center h-screen'>
-                <div className='flex flex-col items-center gap-15'>
-                    <div className='flex flex-col items-center gap-4'>
-                        <span className='title text-5xl'>წიგნი</span>
-                        <span className=''>მრავალ თემასთან დაკავშირებული არტიკლები ქართულ და ინგლისურ ენაზე.</span>
-                    </div>
+        <div className="w-full min-h-screen flex justify-center items-center px-4 py-12">
+            <div className="flex flex-col items-center gap-8 md:gap-10 max-w-2xl w-full text-center">
+                <div className="flex flex-col items-center gap-3">
+                    <span className="title text-4xl sm:text-6xl font-black text-zinc-100 tracking-tight">
+                        წიგნი
+                    </span>
+                    <span className="text-zinc-400 text-sm sm:text-base max-w-md leading-relaxed">
+                        მრავალ თემასთან დაკავშირებული არტიკლები ქართულ და ინგლისურ ენაზე.
+                    </span>
+                </div>
 
+                <div className="relative w-48 h-48 sm:w-64 sm:h-64 my-2">
                     <Image
                         src="/images/logo.png"
                         alt="Logo"
-                        height={300}
-                        width={300}
+                        fill
+                        priority
+                        className="object-contain"
                     />
+                </div>
 
+                <div className="w-full">
                     <SearchBar />
                 </div>
             </div>

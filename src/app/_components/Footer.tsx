@@ -2,8 +2,10 @@ import React from 'react'
 
 export default function Footer() {
     return (
-        <div className='flex justify-center py-10 mt-10 border-t border-zinc-500/50'>
-            <p>ეს პროექტი შემუშავებულია ინდივიდუალური პირის მიერ. არტიკლები არის სუბიექტური, რას ნიშნავს, რომ ყველას არ ექნება შესაძლებლობა ატვირთოს ინფორმაცია.</p>
-        </div>
+        <footer className='w-full flex justify-center py-8 sm:py-10 mt-12 sm:mt-20 border-t border-zinc-800/80 px-4'>
+            <p className='text-zinc-500 text-xs sm:text-sm text-center max-w-2xl leading-relaxed'>
+                ეს პროექტი შემუშავებულია ინდივიდუალური პირის მიერ. არტიკლები არის სუბიექტური, რაც ნიშნავს, რომ ყველას არ ექნება შესაძლებლობა ატვირთოს ინფორმაცია.
+            </p>
+        </footer>
     )
 }
