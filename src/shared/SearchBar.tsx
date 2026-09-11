@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
 import { useRouter } from 'next/navigation';
@@ -19,7 +19,9 @@ export default function SearchBar() {
     const [results, setResults] = useState<SearchItem[]>([]);
     const [fuse, setFuse] = useState<Fuse<SearchItem> | null>(null);
     const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+    const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         fetch(`/search-index.json?v=${Date.now()}`)
@@ -42,17 +44,31 @@ export default function SearchBar() {
         if (!fuse || !query.trim()) {
             setResults([]);
             setSelectedIndex(-1);
+            setIsOpen(false);
             return;
         }
         const searchResults = fuse.search(query).map((res) => res.item);
         setResults(searchResults.slice(0, 5));
         setSelectedIndex(-1);
+        setIsOpen(true);
     }, [query, fuse]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleClear = () => {
         setQuery('');
         setResults([]);
         setSelectedIndex(-1);
+        setIsOpen(false);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -81,7 +97,7 @@ export default function SearchBar() {
     };
 
     return (
-        <div className="relative w-full max-w-lg mx-auto p-4">
+        <div ref={containerRef} className="relative w-full max-w-lg mx-auto p-4">
             <div className="relative flex items-center w-full rounded-2xl bg-zinc-900/90 border border-zinc-800 backdrop-blur-xl shadow-2xl transition-all duration-300 focus-within:border-rose-500/80 focus-within:ring-4 focus-within:ring-rose-500/10 group">
                 <div className="pl-4 text-zinc-400 group-focus-within:text-rose-400 transition-colors">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,6 +109,7 @@ export default function SearchBar() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => query.trim() && setIsOpen(true)}
                     onKeyDown={handleKeyDown}
                     placeholder="მოიძიეთ რაც გაინტერესებთ..."
                     className="w-full bg-transparent py-3.5 pl-3 pr-12 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none"
@@ -114,44 +131,50 @@ export default function SearchBar() {
                 )}
             </div>
 
-            {query.trim() !== '' && (
-                <div className="absolute left-4 right-4 mt-2 bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-2xl backdrop-blur-xl overflow-hidden z-50 divide-y divide-zinc-800/50">
+            {isOpen && query.trim() !== '' && (
+                <div className="absolute left-1/2 -translate-x-1/2 w-[calc(100%+2rem)] sm:w-[calc(100%+4rem)] mt-3 p-2 bg-zinc-900/95 border border-zinc-800/80 rounded-2xl shadow-2xl backdrop-blur-2xl overflow-hidden z-50">
                     {results.length > 0 ? (
-                        results.map((item, idx) => (
-                            <Link
-                                key={item.slug}
-                                href={`/article/${item.slug}`}
-                                onClick={handleClear}
-                                className={`block p-3.5 transition-colors group ${
-                                    idx === selectedIndex ? 'bg-zinc-800/80 border-l-2 border-rose-500' : 'hover:bg-zinc-800/60'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between mb-1">
-                                    <h4 className={`text-sm font-medium transition-colors ${
-                                        idx === selectedIndex ? 'text-rose-400' : 'text-zinc-200 group-hover:text-rose-400'
-                                    }`}>
-                                        {item.title}
-                                    </h4>
-                                    <div className="flex gap-1.5 text-[10px] font-mono">
-                                        {item.region && (
-                                            <span className="bg-zinc-800 text-zinc-400 px-1.5 py-0.5 rounded border border-zinc-700/50">
-                                                {item.region}
-                                            </span>
-                                        )}
-                                        {item.topic && (
-                                            <span className="bg-rose-950/40 text-rose-300 px-1.5 py-0.5 rounded border border-rose-500/20">
-                                                {item.topic}
-                                            </span>
-                                        )}
+                        <div className="space-y-1">
+                            {results.map((item, idx) => (
+                                <Link
+                                    key={item.slug}
+                                    href={`/article/${item.slug}`}
+                                    onClick={handleClear}
+                                    className={`block p-4 rounded-xl transition-all duration-150 group ${
+                                        idx === selectedIndex ? 'bg-zinc-800/90 ring-1 ring-rose-500/50' : 'hover:bg-zinc-800/60'
+                                    }`}
+                                >
+                                    <div className="flex flex-col gap-2.5">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <h4 className={`text-base font-medium leading-snug transition-colors ${
+                                                idx === selectedIndex ? 'text-rose-400' : 'text-zinc-100 group-hover:text-rose-400'
+                                            }`}>
+                                                {item.title}
+                                            </h4>
+                                            
+                                            <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono shrink-0">
+                                                {item.region && (
+                                                    <span className="bg-zinc-800/80 text-zinc-300 px-2 py-0.5 rounded-md border border-zinc-700/60">
+                                                        {item.region}
+                                                    </span>
+                                                )}
+                                                {item.topic && (
+                                                    <span className="bg-rose-950/50 text-rose-300 px-2 py-0.5 rounded-md border border-rose-500/30">
+                                                        {item.topic}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-2">
+                                            {item.snippet}...
+                                        </p>
                                     </div>
-                                </div>
-                                <p className="text-xs text-zinc-400 line-clamp-1">
-                                    {item.snippet}...
-                                </p>
-                            </Link>
-                        ))
+                                </Link>
+                            ))}
+                        </div>
                     ) : (
-                        <div className="p-4 text-center text-xs text-zinc-500">
+                        <div className="p-6 text-center text-xs sm:text-sm text-zinc-500">
                             შედეგი ვერ მოიძებნა
                         </div>
                     )}

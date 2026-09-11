@@ -60,7 +60,7 @@ export default async function ArticlePage({
                     <div className="flex flex-wrap gap-2 text-xs font-mono">
                         {frontmatter.region && (
                             <span className="bg-zinc-900 border border-zinc-700/60 px-2.5 py-1 rounded-md">
-                                📍 {frontmatter.region}
+                                {frontmatter.region}
                             </span>
                         )}
                         {frontmatter.topic && (
@@ -70,7 +70,7 @@ export default async function ArticlePage({
                         )}
                         {frontmatter.era && (
                             <span className="bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-md">
-                                ⏳ {frontmatter.era}
+                                {frontmatter.era}
                             </span>
                         )}
                     </div>
@@ -88,7 +88,7 @@ export default async function ArticlePage({
                             className="w-full h-auto rounded-xl object-cover"
                         />
                         <p className="text-[11px] text-center text-zinc-500 mt-2 font-mono">
-                            წყარო: Dialectal Map Asset (jsDelivr CDN)
+                            წყარო: Dialectal Map Asset
                         </p>
                     </div>
                 )}

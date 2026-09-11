@@ -60,7 +60,7 @@ export default function Navigation() {
             <div className='mt-16 sm:mt-24 w-full max-w-4xl flex flex-col justify-center items-center gap-6 text-center'>
                 <span className='text-xl sm:text-2xl font-medium'>თუ ამ კატეგორიებში არ ეძებდი:</span>
 
-                <ul className='flex flex-wrap justify-center gap-3 sm:gap-4 text-xs sm:text-sm font-mono'>
+                <ul className='flex flex-wrap justify-center gap-3 sm:gap-4 text-xs sm:text-sm font-mono text-whitez'>
                     <li className='bg-zinc-900 border border-zinc-800 px-3.5 py-2 rounded-xl hover:border-zinc-700 transition-colors'>ატლასი და რუკები</li>
                     <li className='bg-zinc-900 border border-zinc-800 px-3.5 py-2 rounded-xl hover:border-zinc-700 transition-colors'>დიალექტური ქრონიკები</li>
                     <li className='bg-zinc-900 border border-zinc-800 px-3.5 py-2 rounded-xl hover:border-zinc-700 transition-colors'>ტოპონიმები</li>

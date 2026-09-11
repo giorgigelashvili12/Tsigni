@@ -36,9 +36,8 @@ async function buildSearchIndex() {
     );
 
     fs.writeFileSync(outputFilePath, JSON.stringify(searchIndex, null, 2));
-    console.log(`Successfully generated search-index.json with ${searchIndex.length} articles.`);
   } catch (error) {
-    console.error('Failed to build search index:', error);
+    console.error('Failed to build', error);
     fs.writeFileSync(outputFilePath, JSON.stringify([]));
   }
 }
